@@ -1,0 +1,10 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{\numberline {1}Definición del problema.}{3}{}%
+\contentsline {section}{\numberline {2}Pregunta a resolver.}{3}{}%
+\contentsline {section}{\numberline {3}Alcance y restricciones.}{3}{}%
+\contentsline {section}{\numberline {4}Variables de entrada, decisión, parámetros y variables de salida.}{3}{}%
+\contentsline {subsection}{\numberline {4.1}Variables de entrada.}{4}{}%
+\contentsline {subsection}{\numberline {4.2}Variables de decisión.}{4}{}%
+\contentsline {subsection}{\numberline {4.3}Parámetros.}{4}{}%
+\contentsline {subsection}{\numberline {4.4}Variables de salida.}{4}{}%
+\contentsline {section}{\numberline {5}Hipótesis y simplificaciones.}{5}{}%

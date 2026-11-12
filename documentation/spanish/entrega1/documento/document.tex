@@ -1,0 +1,133 @@
+\documentclass[10.5pt]{article} 
+\usepackage[utf8]{inputenc}   
+\usepackage[spanish]{babel}  
+\usepackage{amsmath}   
+\usepackage{ amssymb }
+\usepackage{amsfonts}         
+\usepackage{geometry}          
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{xcolor}
+\usepackage{ulem}
+\usepackage{tcolorbox}
+\usepackage{cancel} 
+\usepackage{tikz}
+
+\geometry{a4paper, margin=1in} 
+
+\title{Proyectos III. Entrega 1. Design Review.}    
+\author{César Vidal Fernández}      
+\date{Septiembre de 2026}                  
+
+\definecolor{ejercicio}{RGB}{59, 88, 102}
+\definecolor{explicacion}{rgb}{0.008, 0.161, 0.098}
+
+\newcommand{\tachareq}[1]{\textcolor{black}{\cancel{#1}}} % Para ecuaciones
+\newcommand{\dvt}[1]{\;\mathrm{d}#1}
+\newcommand{\separation}{\vspace{10px} \rule{\textwidth}{0.6pt} \newline}
+\newcommand{\lagrangian}{\mathcal{L}}
+
+\begin{document}
+	
+	\renewcommand{\contentsname}{Contenido.}
+	
+	\maketitle    
+	\newpage
+	
+	\tableofcontents
+	\newpage
+	
+	\section{Definición del problema.}
+	
+	Han sido muy escuchadas en los últimos meses las restricciones y problemas a los que se enfrenta el \textbf{estadio Santiago Bernabéu}, debido al nivel de ruido que la actual estructura del estadio no es capaz de atenuar y que llega de forma casi directa a los vecinos de la zona.
+	
+	Para finales de 2024 terminaron las obras del estadio. Para nuestro estudio, nos interesan dos aspectos en concreto que cambiaron de forma fundamental con las novedades introducidas:
+	
+	\begin{itemize}
+		\item Nueva \textbf{estructura de césped retráctil}. Se invirtieron más de 225 millones de euros en una estructura automatizada que permite retirar el terreno de juego dividiéndolo en bandejas para sustituirlo por un suelo sólido. Este sistema desplaza el césped a un foso subterráneo de unos 30 metros de profundidad (al que le llaman \textit{hipogea}), donde cuenta con una instalación inmensa de riego, climatización, inyección de $\text{CO}_2$ y mantenimiento por luz ultravioleta. Estos esfuerzos tenían un propósito muy importante: poder celebrar conciertos y eventos multitudinarios entre jornadas de liga sin dañar de ninguna forma el césped.
+		
+		\item El cambio de la \textbf{estructura decorativa exterior}. Se reemplazó la antigua fachada por una envolvente de lamas de acero inoxidable asimétricas. Permite la ventilación y entrada de luz natural. Además, se instaló una cubierta retráctil capaz de desplegarse en 15 minutos para cubrir de forma completa las gradas y el campo, que se usa principalmente en días cálidos (ya que permite refrigerar con aire acondicionado el recinto) o lluviosos.
+	\end{itemize}
+	
+	\section{Pregunta a resolver.}
+	
+	Este no es el único ámbito que quiero abarcar. Mi intención es poder realizar de forma completa una especie de patio de juego (\textit{playground}) sencillo que nos permita, de forma simplificada, estudiar situaciones físicas de forma realista enfocadas al mundo del audio.
+	
+	Como el problema a resolver es parte del estudio de mi TFG y no quiero que estos trabajos se solapen, he decidido comenzar la implementación de este motor de físicas enfocándola hacia otro sitio completamente diferente.
+	
+	El propósito para esta asignatura será entonces poder realizar una simulación pseudorrealista del vuelo de un avión que rompe la barrera del sonido. Será a este momento en concreto al que se le dedicará la mayor parte del tiempo: se pretenderá poder visualizar de forma intuitiva y a tiempo real ese instante preciso, así como el comportamiento de la onda expansiva y de choque en el momento en el que se sobrepasa este límite.
+	
+	En resumen, la pregunta a resolver es cómo se forma y se propaga la onda de choque cuando un avión pasa de volar más lento a más rápido que el sonido, y cómo cambia ese comportamiento al modificar las condiciones del vuelo.
+	
+	\section{Alcance y restricciones.}
+	
+	El alcance es limitado y acotado. Se pretende estudiar esta situación concreta desde la perspectiva de una simulación en tiempo real; esto significa que se deberán adaptar los algoritmos utilizados para que puedan ser renderizados en tiempo de ejecución, de forma que se pueda "jugar" con las variables y editar aspectos al instante para ver cómo estos afectan al resultado.
+	
+	Debe ser así debido al propósito que quiero cumplir para mi TFG, ya que este motor será la base, de forma teórica más que práctica, para lo que luego será el código real (se cambiará de lenguaje, se pulirán detalles y se mejorará la estructura). 
+	
+	\section{Variables de entrada, decisión, parámetros y variables de salida.}
+	
+	Para poder "jugar" con la simulación en tiempo real, conviene tener claro qué se puede tocar y qué se obtiene como resultado.
+	
+	\subsection{Variables de entrada.}
+	
+	Son las condiciones del entorno y del avión que se fijan al empezar (o que se pueden cambiar mientras corre la simulación):
+	
+	\begin{itemize}
+		\item \textbf{Temperatura del aire}: de ella depende la velocidad del sonido, y por tanto la velocidad a la que el avión rompe la barrera.
+		\item \textbf{Altitud de vuelo}: influye en la temperatura y en el aire que atraviesa el avión.
+		\item \textbf{Velocidad inicial del avión}.
+		\item \textbf{Tamaño y forma del avión}: longitud y lo afilado que es el morro, que afectan a lo fuerte que será la onda de choque.
+		\item \textbf{Posición del observador}: el punto desde el que "escuchamos" el estampido.
+	\end{itemize}
+	
+	\subsection{Variables de decisión.}
+	
+	Son las que controlamos para llevar al avión hasta el régimen supersónico:
+	
+	\begin{itemize}
+		\item \textbf{Aceleración del avión}: cuánto empuje se le da y cómo evoluciona con el tiempo.
+		\item \textbf{Velocidad objetivo}: hasta qué número de Mach queremos que llegue.
+	\end{itemize}
+	
+	El vuelo será recto y a altura constante, así que no hay más decisiones que tomar sobre la trayectoria.
+	
+	\subsection{Parámetros.}
+	
+	Son valores que se mantienen fijos durante la simulación:
+	
+	\begin{itemize}
+		\item Las propiedades básicas del aire (las que relacionan la temperatura con la velocidad del sonido).
+		\item La forma en que cambia la temperatura con la altura.
+		\item El paso de tiempo de la simulación y la resolución con la que se dibuja el resultado, que se ajustarán para que todo funcione fluido en tiempo real.
+	\end{itemize}
+	
+	\subsection{Variables de salida.}
+	
+	Es lo que queremos ver y medir:
+	
+	\begin{itemize}
+		\item El \textbf{número de Mach} del avión en cada momento.
+		\item El \textbf{cono de Mach}: su ángulo y cómo se va formando conforme el avión acelera.
+		\item Los \textbf{frentes de onda} que va dejando el avión y cómo se acumulan al acercarse a la velocidad del sonido.
+		\item El \textbf{campo de presión}, para visualizar la onda de choque.
+		\item La \textbf{intensidad del estampido} y el momento en que llega al observador.
+		\item El \textbf{rendimiento} de la simulación (fotogramas por segundo), para comprobar que de verdad funciona en tiempo real.
+	\end{itemize}
+	
+	\section{Hipótesis y simplificaciones.}
+	
+	Como el objetivo es una simulación que funcione en tiempo real y que sirva de base para el TFG, se asumen las siguientes simplificaciones:
+	
+	\begin{itemize}
+		\item El aire se comporta como un gas ideal. No se va a tener en cuenta la humedad, pero si efectos de vientos o turbulencias.
+		\item Se simulará el rozamiento del avión de forma simplificada.
+		\item El avión vuela en línea recta y a altura constante.
+		\item El avión se simplifica en geometría.
+		\item Las ondas se calculan con modelos aproximados en lugar de resolver las ecuaciones completas del fluido, ya que serían demasiado costosas para tiempo real.
+		\item No se tienen en cuenta reflexiones en el suelo o los edificios, ni que el sonido se pierda por el camino. Para el TFG sí, pero por ahora no se tiene en cuenta.
+		\item El avión sigue la aceleración que decide el usuario, sin simular la física real del motor.
+		\item Se prioriza que la visualización sea clara e intuitiva frente a que los números sean exactos, sobre todo justo en el momento de romper la barrera del sonido.
+	\end{itemize}
+	
+\end{document}

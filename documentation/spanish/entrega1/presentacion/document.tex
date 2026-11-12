@@ -1,0 +1,192 @@
+\documentclass[aspectratio=169,11pt]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{tikz}
+
+\definecolor{ejercicio}{RGB}{59, 88, 102}
+\definecolor{acento}{RGB}{200, 80, 50}
+
+\usetheme{default}
+\usecolortheme{default}
+\setbeamercolor{title}{fg=ejercicio}
+\setbeamercolor{frametitle}{fg=ejercicio}
+\setbeamercolor{structure}{fg=ejercicio}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{footline}[frame number]
+
+\newcommand{\foto}[2]{%
+	\IfFileExists{#1}{\includegraphics[width=#2]{#1}}{%
+		\fbox{\parbox[c][3.2cm][c]{#2}{\centering\small\color{gray}[ foto: \detokenize{#1} ]}}}}
+
+\newcommand{\dato}[2]{%
+	\begin{minipage}{0.3\textwidth}\centering
+		{\Huge\bfseries\color{acento} #1}\\[4pt]
+		{\small #2}
+\end{minipage}}
+
+\title{Design Review}
+\subtitle{Proyectos III. Entrega 1}
+\author{César Vidal Fernández}
+\date{Septiembre de 2026}
+
+\begin{document}
+	
+	\begin{frame}
+		\titlepage
+	\end{frame}
+	
+	% ---------------------------------------------------------------
+	\begin{frame}{El punto de partida: el Bernabéu}
+		\vspace{0.4cm}
+		\begin{center}
+			\dato{225 M\texteuro}{de inversión en el césped retráctil}
+			\hfill
+			\dato{30 m}{de profundidad del foso (\textit{hipogea})}
+			\hfill
+			\dato{15 min}{en desplegar la cubierta}
+		\end{center}
+		\vspace{0.6cm}
+		\begin{center}
+			\foto{imagen/bernabeuViejo.jpg}{0.4\textwidth}
+			\hspace{0.5cm}
+			\foto{imagen/bernabeuNuevo.png}{0.4\textwidth}
+		\end{center}
+	\end{frame}
+	
+	% ---------------------------------------------------------------
+	\begin{frame}{Por qué me centro en otra cosa}
+		\vspace{0.5cm}
+		\begin{center}
+			{\Large Motor de físicas adaptable\\}
+		\end{center}
+		\vspace{0.6cm}
+		\begin{center}
+			\begin{tabular}{ccc}
+				\textbf{TFG} & $\longrightarrow$ & \textbf{Proyectos III} \\[4pt]
+				Audio y estadio & & Avión rompiendo\\ & & la barrera del sonido
+			\end{tabular}
+		\end{center}
+	\end{frame}
+	
+	% ---------------------------------------------------------------
+	\begin{frame}{Objetivo}
+		\vspace{0.4cm}
+		\begin{center}
+			{\Large Simulación \textbf{en tiempo real}\\ del instante en que se supera Mach 1.}
+		\end{center}
+		\vspace{0.6cm}
+		\begin{center}
+			\foto{imagen/concorde.jpg}{0.5\textwidth}
+		\end{center}
+	\end{frame}
+	
+	% ---------------------------------------------------------------
+	\begin{frame}{Algunos datos}
+		\vspace{0.4cm}
+		\begin{center}
+			\dato{343 m/s}{velocidad del sonido a 20\,$^\circ$C}
+			\hfill
+			\dato{1\,235 km/h}{lo mismo en km/h}
+			\hfill
+			\dato{1947}{primer vuelo supersónico (Bell X-1)}
+		\end{center}
+		\vspace{0.8cm}
+		\begin{center}
+			{\large A mayor altura hace más frío, y el sonido va más lento:\\
+				Mach 1 son unos \textbf{295 m/s} a 11\,000 m.}
+		\end{center}
+	\end{frame}
+	
+	% ---------------------------------------------------------------
+	\begin{frame}{El cono de Mach}
+		\begin{columns}[c]
+			\column{0.55\textwidth}
+			\begin{center}
+				\begin{tikzpicture}[scale=0.85]
+					% frentes de onda emitidos (Mach 2)
+					\foreach \d in {0.8,1.6,2.4,3.2}{
+						\draw[ejercicio!60] (-\d,0) circle (\d/2);
+					}
+					% cono
+					\draw[acento, thick] (0,0) -- ({-4.6*cos(30)},{4.6*sin(30)});
+					\draw[acento, thick] (0,0) -- ({-4.6*cos(30)},{-4.6*sin(30)});
+					% avión
+					\fill[black] (0,0) circle (2.5pt);
+					\draw[->, thick] (0.2,0) -- (1.2,0);
+					\node[right] at (1.2,0) {\small avión};
+					\node[acento] at (-1.2,0.55) {\small $\mu$};
+				\end{tikzpicture}
+			\end{center}
+			\column{0.4\textwidth}
+			\begin{center}
+				{\Large $\displaystyle \mu = \arcsin\left(\frac{1}{M}\right)$}
+			\end{center}
+		\end{columns}
+	\end{frame}
+	
+	% ---------------------------------------------------------------
+	\begin{frame}{Cuanto más rápido, más cerrado}
+		\vspace{0.5cm}
+		\begin{center}
+			\renewcommand{\arraystretch}{1.6}
+			\begin{tabular}{c|cccc}
+				\textbf{Mach} & 1,2 & 1,5 & 2 & 3 \\ \hline
+				\textbf{Ángulo del cono} & 56,4$^\circ$ & 41,8$^\circ$ & 30$^\circ$ & 19,5$^\circ$
+			\end{tabular}
+		\end{center}
+	\end{frame}
+	
+	% ---------------------------------------------------------------
+	\begin{frame}{Qué se podrá tocar}
+		\begin{columns}[t]
+			\column{0.3\textwidth}
+			\begin{center}
+				{\large\bfseries\color{ejercicio} Entrada}\\[6pt]
+				Temperatura\\
+				Altitud\\
+				Velocidad inicial\\
+				Forma del avión\\
+				Observador
+			\end{center}
+			\column{0.3\textwidth}
+			\begin{center}
+				{\large\bfseries\color{ejercicio} Variables en ejecución}\\[6pt]
+				Aceleración\\
+				Velocidad objetivo
+			\end{center}
+			\column{0.3\textwidth}
+			\begin{center}
+				{\large\bfseries\color{ejercicio} Salida}\\[6pt]
+				Número de Mach\\
+				Cono de Mach\\
+				Campo de presión\\
+				Estampido\\
+				FPS
+			\end{center}
+		\end{columns}
+	\end{frame}
+	
+	% ---------------------------------------------------------------
+	\begin{frame}{Simplificaciones}
+		\vspace{0.4cm}
+		\begin{center}
+			{\Large
+				Vuelo recto y a altura constante\\[6pt]
+				Aire ideal, con viento y turbulencias pero sin viscosidad\\[6pt]
+				Avión como objeto simple (geometría reducida)\\[6pt]
+				Claridad antes que exactitud}
+		\end{center}
+	\end{frame}
+	
+	% ---------------------------------------------------------------
+	\begin{frame}
+		\vspace{1.2cm}
+		\begin{center}
+			{\Huge\color{ejercicio} Gracias.}
+		\end{center}
+	\end{frame}
+	
+\end{document}
