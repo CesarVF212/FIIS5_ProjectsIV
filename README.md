@@ -3,7 +3,7 @@
 A real-time, interactive audiovisual simulation of an aircraft breaking the sound barrier. The project models the *Concorde* during its transition from subsonic to supersonic flight, recreating both the **visual formation of the Mach cone** and the **sound heard by an observer**, including the Doppler effect and the sonic boom.
 
 Developed for *Projects IV: Graphics Programming, Immersive Systems and Video Games*.
-
+![Image](documentation/images/concorde.png)
 ## Overview
 
 Instead of solving the full compressible Navier–Stokes equations, the simulation relies on simplified models that are cheap enough to run in real time:
@@ -61,3 +61,8 @@ Work in progress (November 2026 – February 2027). Subsystems are developed and
 ## Author
 
 César Vidal Fernández
+
+
+## Credits.
+
+- Concorde Model: https://sketchfab.com/3d-models/concorde-6d95290363474798a429a38bbf9ad49d
