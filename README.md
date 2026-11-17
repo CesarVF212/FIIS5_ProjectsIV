@@ -66,3 +66,7 @@ César Vidal Fernández
 ## Credits.
 
 - Concorde Model: https://sketchfab.com/3d-models/concorde-6d95290363474798a429a38bbf9ad49d
+
+## References.
+
+- [NumPy Developers. 2024. "numpy.random.normal." *NumPy v2.1 Manual*](https://numpy.org/doc/2.1/reference/random/generated/numpy.random.normal.html).
