@@ -1,0 +1,4 @@
+\babel@toc {english}{}\relax 
+\contentsline {section}{\numberline {1}Sound Engine. First Steps (17/11/2025)}{3}{}%
+\contentsline {subsection}{\numberline {1.1}Generation of White Noise.}{3}{}%
+\contentsline {subsection}{\numberline {1.2}PSD comparison to the Concorde Motor.}{4}{}%

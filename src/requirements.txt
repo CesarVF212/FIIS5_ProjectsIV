@@ -1,4 +1,7 @@
 numpy
+scipy 
+
+matplotlib
 
 moderngl
 moderngl-window

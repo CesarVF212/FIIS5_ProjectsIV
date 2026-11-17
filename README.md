@@ -2,6 +2,8 @@
 
 A real-time, interactive audiovisual simulation of an aircraft breaking the sound barrier. The project models the *Concorde* during its transition from subsonic to supersonic flight, recreating both the **visual formation of the Mach cone** and the **sound heard by an observer**, including the Doppler effect and the sonic boom.
 
+**The complete development process is documented in a pdf file found in documentation/english/milestones.**
+
 Developed for *Projects IV: Graphics Programming, Immersive Systems and Video Games*.
 ![Image](documentation/images/concorde.png)
 ## Overview
@@ -70,3 +72,5 @@ César Vidal Fernández
 ## References.
 
 - [NumPy Developers. 2024. "numpy.random.normal." *NumPy v2.1 Manual*](https://numpy.org/doc/2.1/reference/random/generated/numpy.random.normal.html).
+- Richardson, Maguire. 2007. "Concorde - Take-off over the neighbourhood - Heathrow." Vídeo de YouTube, 1:01. [https://www.youtube.com/watch?v=i1ShTUVIzCI](https://www.youtube.com/watch?v=i1ShTUVIzCI).
+- SciPy Developers. 2024. "scipy.signal.welch." En *SciPy Manual*. [https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.welch.html](https://docs.scipy.org/doc/scipy/reference/generated/scipy.signal.welch.html).
