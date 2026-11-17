@@ -1,3 +1,9 @@
 numpy
+
 moderngl
 moderngl-window
+
+soundfile
+sounddevice
+
+pytest

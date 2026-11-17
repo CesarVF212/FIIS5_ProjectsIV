@@ -28,7 +28,7 @@ class Window(mglw.WindowConfig):
                 gl_Position = vec4(in_position, 0.0, 1.0);
             }
         """,
-        
+
         fragment_shader="""
             #version 330
             uniform float time;
@@ -41,6 +41,7 @@ class Window(mglw.WindowConfig):
                 return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
             }
 
+            // Noise.
             float noise(vec2 p) 
             {
                 vec2 i = floor(p);
@@ -56,7 +57,7 @@ class Window(mglw.WindowConfig):
                 return mix(mix(a, b, f.x), mix(c, d, f.x), f.y);
             }
 
-            // Ruido.
+            
             float fbm(vec2 p) 
             {                      
                 float v = 0.0;
