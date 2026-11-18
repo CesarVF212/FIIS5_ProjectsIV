@@ -5,23 +5,30 @@ import numpy as np
 import scipy as sp
 import matplotlib.pyplot as plt
 
-class Sound():
+from .filters import SoundFilters
+from .noise import SoundGenerator
+
+class Sound(SoundFilters, SoundGenerator):
 
     def __init__(self, samplerate=44100, blocksize=256, channels=2, device=None):
         self.samplerate = samplerate
         self.blocksize = blocksize
         self.channels = channels
         self.device = device
+        self.nyq = 0.5 * self.samplerate
+
 
     def to_array(self, path):
         if not os.path.exists(path): return False
         data, file_sr = sf.read(path, dtype="float32", always_2d=True)
         return data, file_sr
 
+
     def to_mono(self, array):
         if(array.ndim > 1):
             array = np.mean(array, axis=1)
         return array
+
 
     def play_mp3(self, path):
 
@@ -32,20 +39,12 @@ class Sound():
         sd.wait()
         return True
 
+
     def play_array(self, array):
         sd.play(array)
         sd.wait()
         return True
 
-
-    def generate_white_noise(self, durationSeconds, mean = 0, std_deviation = 0.1):
-        if durationSeconds <= 0: return False
-
-        num_samples = int(self.samplerate * durationSeconds)
-
-        # Generate the values using a normal distribution.
-        array = np.random.normal(mean, std_deviation, num_samples)
-        return array
 
     def compare_psd(self, first_array, second_array):
 
@@ -75,6 +74,6 @@ class Sound():
         plt.ylabel("Intensity (DB)")
 
         # Center around the audible spectrum.
-        plt.xlim(0, 20000)
+        plt.xlim(0, 22000)
 
         plt.show()
