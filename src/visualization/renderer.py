@@ -24,7 +24,7 @@ class Window(mglw.WindowConfig):
             out vec2 uv;
             void main() 
             {
-                uv = in_position * 0.5 + 0.5;       // Todo el espacio de la pantalla.
+                uv = in_position * 0.5 + 0.5; // All the screen space.
                 gl_Position = vec4(in_position, 0.0, 1.0);
             }
         """,
@@ -95,6 +95,8 @@ class Window(mglw.WindowConfig):
 
         # Concorde loader and camera configuration.
         self.scene = self.load_scene("concorde/scene.gltf")
+
+        # Create an orbital camera.
         self.camera = OrbitCamera(aspect_ratio=self.wnd.aspect_ratio)
 
     def on_render(self, time: float, frame_time: float):
